@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  library:
+    build: .
+    container_name: library-seat-system
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./library.db:/app/library.db
+      - ./uploads:/app/uploads
+      - ./.env:/app/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

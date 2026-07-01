@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智慧图书馆座位预约系统</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <div id="auth-page" class="page">
+    <div class="auth-card">
+      <h1>智慧图书馆座位预约系统</h1>
+      <div class="auth-tabs">
+        <button class="tab active" onclick="showAuthTab('login')">登录</button>
+        <button class="tab" onclick="showAuthTab('register')">注册</button>
+      </div>
+      <form id="login-form" class="auth-form">
+        <input type="text" id="login-id" placeholder="学号" required>
+        <input type="password" id="login-pwd" placeholder="密码" required>
+        <button type="submit">登录</button>
+        <p id="login-msg" class="msg"></p>
+      </form>
+      <form id="register-form" class="auth-form hidden">
+        <input type="text" id="reg-id" placeholder="学号" required>
+        <input type="password" id="reg-pwd" placeholder="密码" required>
+        <input type="text" id="reg-name" placeholder="姓名" required>
+        <button type="submit">注册</button>
+        <p id="reg-msg" class="msg"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="main-page" class="page hidden">
+    <header>
+      <h2>智慧图书馆</h2>
+      <div class="header-info">
+        <span id="user-display"></span>
+        <span id="ws-status" class="ws-offline">offline</span>
+        <button id="btn-chat" onclick="toggleChat()">智能问答</button>
+        <button onclick="logout()">退出</button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <div class="left-panel">
+        <div class="floor-tabs" id="floor-tabs"></div>
+        <div class="seat-map-wrap">
+          <div class="seat-map" id="seat-grid"></div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="panel-section">
+          <h3>1. 选择日期</h3>
+          <div class="date-tabs" id="date-tabs"></div>
+        </div>
+        <div class="panel-section">
+          <h3>2. 选择时间段</h3>
+          <div class="time-grid" id="time-grid"><p class="hint">请先选择日期</p></div>
+        </div>
+        <div class="panel-section">
+          <h3>3. 选择座位</h3>
+          <p id="selected-info" class="hint">请先选择日期和时间段</p>
+          <div class="seat-legend">
+            <span><span class="legend-dot free"></span>空闲</span>
+            <span><span class="legend-dot selected-dot"></span>已选</span>
+            <span><span class="legend-dot occupied"></span>已约</span>
+          </div>
+          <button id="btn-reserve" onclick="reserveSeat()" disabled>确认预约</button>
+          <p id="reserve-msg" class="msg"></p>
+        </div>
+        <div class="panel-section" id="my-reservations">
+          <h3>我的预约</h3>
+          <div id="reservation-list"><p class="hint">暂无预约</p></div>
+        </div>
+        <div class="panel-section" id="admin-panel" style="display:none">
+          <h3>管理员面板</h3>
+          <div id="release-form">
+            <input id="release-seat" placeholder="座位号 (如 2F-005)" />
+            <textarea id="release-reason" placeholder="释放原因"></textarea>
+            <div class="evidence-label">证据图片（需含时间水印，仅支持图片格式）</div>
+            <input type="file" id="release-evidence" accept="image/*" />
+            <button onclick="adminRelease()">释放座位</button>
+          </div>
+          <div id="release-list"><p class="hint">暂无释放记录</p></div>
+          <h3>用户管理</h3>
+          <div id="user-list"><p class="hint">加载中...</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat-panel" class="chat-panel hidden">
+    <div class="chat-header">
+      <span>智能问答</span>
+      <div class="chat-header-actions">
+        <span class="model-tag">qwen-max</span>
+        <button id="btn-maximize" onclick="toggleMaximize()" title="放大">□</button>
+        <button onclick="toggleChat()" title="关闭">×</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-placeholder">输入问题开始咨询</div>
+    </div>
+    <div class="chat-thinking hidden" id="chat-thinking">
+      <span class="thinking-dot"></span>
+      <span class="thinking-dot"></span>
+      <span class="thinking-dot"></span>
+      <span id="thinking-text">思考中...</span>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="输入问题..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button onclick="sendChat()">发送</button>
+    </div>
+    <div class="chat-footer">回答由模型生成，具体请以实际情况为准</div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
