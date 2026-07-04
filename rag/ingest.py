@@ -3,7 +3,7 @@ from .chunker import chunk_documents
 from .embedder import embed_batch
 from .store import add_chunks, reset, count
 
-DOCX_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "图书馆相关内容知识库补充.docx")
+DOCX_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowledge", "图书馆相关内容知识库补充.docx")
 
 def read_docx(path: str) -> list[dict]:
     doc = docx.Document(path)

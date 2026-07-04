@@ -1,5 +1,10 @@
 # api/server.py - FastAPI 入口（CORS/中间件/初始数据/路由注册）
 
+import sys
+MIN_PYTHON = (3, 9)
+if sys.version_info < MIN_PYTHON:
+    sys.exit(f"Python {'.'.join(str(v) for v in MIN_PYTHON)}+ required, got {sys.version}")
+
 import os
 from pathlib import Path
 import uvicorn
