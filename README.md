@@ -353,12 +353,12 @@ ep/
 │   └── operations.py       # 数据库初始化与连接
 ├── scheduler/              # 定时任务
 │   └── tasks.py            # APScheduler 超时释放 + 违规处罚
+├── knowledge/              # 知识库源文件
+│   ├── 图书馆相关内容知识库补充.docx   # 官网/手册/规则
+│   └── 义馆值班表模板 .xlsx            # 值班排班模板
 ├── data/                   # 运行时数据
 │   ├── uploads/            # 管理员证据图片
 │   └── vector_store/       # ChromaDB 持久化
-├── knowledge/              # 知识库源文档
-│   ├── 图书馆相关内容知识库补充.docx
-│   └── 义馆值班表模板 .xlsx
 ├── .env                    # 环境变量（API Key 等）
 ├── .env.example            # 环境变量模板
 ├── requirements.txt        # 依赖清单
@@ -437,7 +437,7 @@ docker-compose up -d
 .venv\Scripts\python.exe -c "from rag.ingest import ingest; ingest(force_rebuild=True)"
 ```
 
-当 `图书馆相关内容知识库补充.docx` 内容更新后，运行上述命令重新构建向量库。
+当 `knowledge/图书馆相关内容知识库补充.docx` 内容更新后，运行上述命令重新构建向量库。
 
 ---
 
