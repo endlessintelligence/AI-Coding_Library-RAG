@@ -356,6 +356,9 @@ ep/
 ├── data/                   # 运行时数据
 │   ├── uploads/            # 管理员证据图片
 │   └── vector_store/       # ChromaDB 持久化
+├── knowledge/              # 知识库源文档
+│   ├── 图书馆相关内容知识库补充.docx
+│   └── 义馆值班表模板 .xlsx
 ├── .env                    # 环境变量（API Key 等）
 ├── .env.example            # 环境变量模板
 ├── requirements.txt        # 依赖清单
